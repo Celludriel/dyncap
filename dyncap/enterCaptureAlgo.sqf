@@ -2,6 +2,8 @@ if (!isServer) exitWith {};
 
 diag_log format ["Calling enterCaptureAlgo.sqf"];
 
+disableSerialization;
+
 _trigger = _this select 0;
 _buildingType = _this select 1;
 _radius = _this select 2;
@@ -67,16 +69,15 @@ while {_doCaptureLoop} do {
 		_captureObject setVariable ["isBeingCaptured", true, true];
 
 		// show progressbar
-		disableSerialization;
 		("CapProgressBarLayer" call BIS_fnc_rscLayer) cutRsc ["CapProgressBar", "PLAIN", 0.001, false]; // display PROGRESS BAR
 		_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-		
+
 		// calculate the time held
 		_currentTime = time;
 		_timeHeld = _timeHeld + ( _currentTime - _lastTimeCheck );
 
 		diag_log format ["timeHeld: %1", _timeHeld];
-		
+
 		// update progressbar
 		_progressBar progressSetPosition (_timeHeld / _captureTime);
 
@@ -88,6 +89,13 @@ while {_doCaptureLoop} do {
 			// the capture succeeded set new owner
 			_captureObject setVariable ["isBeingCaptured", false, true];
 			_captureObject setVariable ["owner", _sideWithSuperiorNumbers, true];
+
+			// reset and hide progressbar
+			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
+			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
+			if(!(isNil "_progressBar")) then {
+				_progressBar progressSetPosition 0;
+			};
 			_doCaptureLoop = false;
 		};
 
@@ -99,22 +107,26 @@ while {_doCaptureLoop} do {
 			diag_log format ["Owner back superior ending capture"];
 			_captureObject setVariable ["isBeingCaptured", false, true];
 			_doCaptureLoop = false;
-			
+
 			// reset and hide progressbar
 			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
 			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-			_progressBar progressSetPosition 0;				
+			if(!(isNil "_progressBar")) then {
+				_progressBar progressSetPosition 0;
+			}
 		} else {
 			// new side is getting the upper hand reset timer for that side
 			diag_log format ["Changing capture side"];
 			_timeHeld = 0;
 			_lastTimeCheck = time;
 			_lastSideWithSuperiorNumbers = _sideWithSuperiorNumbers;
-			
+
 			// reset and hide progressbar
 			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
 			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-			_progressBar progressSetPosition 0;			
+			if(!(isNil "_progressBar")) then {
+				_progressBar progressSetPosition 0;
+			};
 			// we do not want to overtax the cpu so we sleep each second, this won't impact user experience but saves on cpu resources
 			sleep 1;
 		};

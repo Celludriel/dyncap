@@ -1,4 +1,4 @@
-#include "Defines.hpp"
+#include "dyncap\Defines.hpp"
 
 class RscTitles
 {

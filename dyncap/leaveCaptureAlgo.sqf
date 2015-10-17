@@ -2,6 +2,8 @@ if (!isServer) exitWith {};
 
 diag_log format ["Calling leaveCaptureAlgo.sqf"];
 
+disableSerialization;
+
 _trigger = _this select 0;
 _buildingType = _this select 1;
 _radius = _this select 2;
@@ -51,10 +53,5 @@ diag_log format ["sideWithSuperiorNumbers: %1", _sideWithSuperiorNumbers];
 
 if(_sideWithSuperiorNumbers == _currentOwner) then {
 	diag_log format ["Owner back superior after leaving trigger ending capture"];
-	_captureBuilding setVariable ["isBeingCaptured", false, true];
-	
-	// reset progressbar
-	("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
-	_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-	_progressBar progressSetPosition 0;	
+	_captureObject setVariable ["isBeingCaptured", false, true];
 };

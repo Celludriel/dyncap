@@ -12,7 +12,7 @@ _captureTrigger = createTrigger ["EmptyDetector", _location, true];
 _captureTrigger setTriggerArea [_captureRadius, _captureRadius, 0, false];
 _captureTrigger setTriggerActivation ["ANY", "PRESENT", true];
 
-_triggerOnAct = format ["[thisTrigger, '%1', %2] execVM 'enterCaptureAlgo.sqf'", _buildingType, _captureRadius];
-_triggerOnLeave = format ["[thisTrigger, '%1', %2] execVM 'leaveCaptureAlgo.sqf'", _buildingType, _captureRadius];
+_triggerOnAct = format ["[thisTrigger, '%1', %2] execVM 'dyncap\enterCaptureAlgo.sqf'", _buildingType, _captureRadius];
+_triggerOnLeave = format ["[thisTrigger, '%1', %2] execVM 'dyncap\leaveCaptureAlgo.sqf'", _buildingType, _captureRadius];
 
 _captureTrigger setTriggerStatements ["this", _triggerOnAct, _triggerOnLeave];
