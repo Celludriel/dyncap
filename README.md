@@ -8,21 +8,22 @@ Usage:
 - Copy the dyncap folder to your mission root
 - Copy or extend your Description.ext with the one in this distribution
 - Use following line to spawn an objective:
-
-Syntax:
-    objective = [position, radius, objectType, captureTime] setMarkerColor color
-Parameters:
-    position: Array - format Position2D
-    radius: Number. radius of capture zone
-    objectType: String
-    captureTime: Number. time in seconds
-Return Value:
-    Object: the spawned object to capture
-
+<p>
+Syntax:<br>
+    objective = [position, radius, objectType, captureTime] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf"<br>
+Parameters:<br>
+    position: Array - format Position2D<br>
+    radius: Number. radius of capture zone<br>
+    objectType: String<br>
+    captureTime: Number. time in seconds<br>
+Return Value:<br>
+    Object: the spawned object to capture<br>
+<p>
+Example:<br>
 _captureBuilding = [(getMarkerPos "spawn_position"),5,"Land_Cargo_Patrol_V1_F", 60] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf";
-
-Object variables that can be referenced
-
-"isBeingCaptured": Boolean - is the object currently being captured
-"owner": Side - who currently owns the object
-"marker": String - name of the marker
+<p>
+Object variables that can be referenced<br>
+<br>
+"isBeingCaptured": Boolean - is the object currently being captured<br>
+"owner": Side - who currently owns the object<br>
+"marker": String - name of the marker<br>
