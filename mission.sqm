@@ -5,12 +5,16 @@ class Mission
 	{
 		"A3_Characters_F_BLUFOR",
 		"a3_characters_f",
-		"a3_map_altis"
+		"a3_map_altis",
+		"A3_Characters_F_OPFOR",
+		"A3_Soft_F_Quadbike"
 	};
 	addOnsAuto[]=
 	{
 		"A3_Characters_F_BLUFOR",
 		"a3_characters_f",
+		"A3_Characters_F_OPFOR",
+		"A3_Soft_F_Quadbike",
 		"a3_map_altis"
 	};
 	randomSeed=4714475;
@@ -34,16 +38,16 @@ class Mission
 	};
 	class Groups
 	{
-		items=1;
+		items=2;
 		class Item0
 		{
 			side="WEST";
 			class Vehicles
 			{
-				items=1;
+				items=2;
 				class Item0
 				{
-					position[]={14729.919,17.91,16710.779};
+					position[]={15122.294,17.91,16839.068};
 					id=0;
 					side="WEST";
 					vehicle="B_Soldier_F";
@@ -51,7 +55,83 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 				};
+				class Item1
+				{
+					position[]={15110.698,17.91,16828.768};
+					id=1;
+					side="WEST";
+					vehicle="B_Soldier_F";
+					player="PLAY CDG";
+					skill=0.60000002;
+				};
 			};
+		};
+		class Item1
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=2;
+				class Item0
+				{
+					position[]={14261.963,17.98,15950.738};
+					id=2;
+					side="EAST";
+					vehicle="O_Soldier_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+				class Item1
+				{
+					position[]={14274.572,17.99,15965.87};
+					id=3;
+					side="EAST";
+					vehicle="O_Soldier_F";
+					player="PLAY CDG";
+					skill=0.60000002;
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=4;
+		class Item0
+		{
+			position[]={14278.637,17.99,15972.019};
+			azimut=-135.84729;
+			id=4;
+			side="EMPTY";
+			vehicle="O_Quadbike_01_F";
+			skill=0.60000002;
+		};
+		class Item1
+		{
+			position[]={14281.738,17.99,15968.729};
+			azimut=-135.84729;
+			id=5;
+			side="EMPTY";
+			vehicle="O_Quadbike_01_F";
+			skill=0.60000002;
+		};
+		class Item2
+		{
+			position[]={15103.224,17.91,16825.063};
+			azimut=-134.13782;
+			id=6;
+			side="EMPTY";
+			vehicle="B_Quadbike_01_F";
+			skill=0.60000002;
+		};
+		class Item3
+		{
+			position[]={15107.12,17.91,16821.748};
+			azimut=-134.13782;
+			id=7;
+			side="EMPTY";
+			vehicle="B_Quadbike_01_F";
+			skill=0.60000002;
 		};
 	};
 	class Markers
@@ -59,7 +139,7 @@ class Mission
 		items=1;
 		class Item0
 		{
-			position[]={14729.222,17.91,16757.045};
+			position[]={14719.448,17.85,16424.42};
 			name="spawn_position";
 			type="Empty";
 		};

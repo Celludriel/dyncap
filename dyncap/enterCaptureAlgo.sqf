@@ -90,6 +90,14 @@ while {_doCaptureLoop} do {
 			_captureObject setVariable ["isBeingCaptured", false, true];
 			_captureObject setVariable ["owner", _sideWithSuperiorNumbers, true];
 
+			// switch color marker
+			_marker = _captureObject getVariable "marker";
+			switch(_sideWithSuperiorNumbers) do{
+				case west : {_marker setMarkerColor "ColorBlue";};
+				case east : {_marker setMarkerColor "ColorRed";};
+				default {_marker setMarkerColor "ColorBlack";};
+			};
+
 			// reset and hide progressbar
 			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
 			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
