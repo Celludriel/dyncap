@@ -17,6 +17,7 @@ _marker setMarkerSize [0.50, 0.50];
 _marker setMarkerColor "ColorRed";
 
 _captureBuilding = _buildingType createVehicle _location;
+_captureBuilding allowDamage false;
 _captureBuilding setVariable ["isBeingCaptured", false, true];
 _captureBuilding setVariable ["owner", east, true];
 _captureBuilding setVariable ["marker", _marker, true];
