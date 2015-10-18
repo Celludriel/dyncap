@@ -37,30 +37,7 @@ while {_doCaptureLoop} do {
 
 	//diag_log format ["activators: %1", _activators];
 
-	_sideCounters = [[west, 0],[east, 0],[independent, 0]];
-	{
-		_activatorSide = side _x;
-		_sideCounterIndex = switch(_activatorSide) do{
-			case west : {0};
-			case east : {1};
-			default {2};
-		};
-		_counter = _sideCounters select _sideCounterIndex;
-		_sideCounters set [_sideCounterIndex, [_activatorSide, ((_counter select 1)+1)]];
-	} forEach _activators;
-
-	//diag_log format ["sideCounters: %1", _sideCounters];
-
-	// find the side with superior numbers
-	_sideWithSuperiorNumbers = _currentOwner;
-	_currentMax = 0;
-	{
-		_count = _x select 1;
-		if(_count > _currentMax) then {
-			_currentMax = _count;
-			_sideWithSuperiorNumbers = _x select 0;
-		};
-	} forEach _sideCounters;
+	_sideWithSuperiorNumbers = [_activators,_currentOwner] call dynCapFindSideWithSuperiorNumbers;
 
 	//diag_log format ["sideWithSuperiorNumbers: %1", _sideWithSuperiorNumbers];
 	//diag_log format ["lastSideWithSuperiorNumbers: %1", _lastSideWithSuperiorNumbers];
@@ -99,11 +76,8 @@ while {_doCaptureLoop} do {
 			};
 
 			// reset and hide progressbar
-			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
-			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-			if(!(isNil "_progressBar")) then {
-				_progressBar progressSetPosition 0;
-			};
+			[] call dynCapResetProgressBar;
+
 			_doCaptureLoop = false;
 		};
 
@@ -117,11 +91,7 @@ while {_doCaptureLoop} do {
 			_doCaptureLoop = false;
 
 			// reset and hide progressbar
-			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
-			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-			if(!(isNil "_progressBar")) then {
-				_progressBar progressSetPosition 0;
-			}
+			[] call dynCapResetProgressBar;
 		} else {
 			// new side is getting the upper hand reset timer for that side
 			diag_log format ["Changing capture side"];
@@ -130,11 +100,8 @@ while {_doCaptureLoop} do {
 			_lastSideWithSuperiorNumbers = _sideWithSuperiorNumbers;
 
 			// reset and hide progressbar
-			("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
-			_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
-			if(!(isNil "_progressBar")) then {
-				_progressBar progressSetPosition 0;
-			};
+			[] call dynCapResetProgressBar;
+
 			// we do not want to overtax the cpu so we sleep each second, this won't impact user experience but saves on cpu resources
 			sleep 1;
 		};

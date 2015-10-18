@@ -1,5 +1,7 @@
 if (!isServer) exitWith {};
 
+[] call compileFinal preprocessFileLineNumbers "dyncap\dyncap_fn.sqf";
+
 _location = _this select 0;
 _captureRadius = _this select 1;
 _buildingType = _this select 2;
