@@ -9,20 +9,19 @@ Usage:
 - Copy or extend your Description.ext with the one in this distribution
 - Use following line to spawn an objective:
 <p>
-Syntax:<br>
-    &emsp;objective = [position, radius, objectType, captureTime] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf"<br>
-Parameters:<br>
+<b>Syntax:</b><br>
+    &emsp;objective = [position, radius, objectType, captureTime] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf"<p>
+<b>Parameters:</b><br>
     &emsp;position: Array - format Position2D<br>
     &emsp;radius: Number. radius of capture zone<br>
     &emsp;objectType: String<br>
-    &emsp;captureTime: Number. time in seconds<br>
-Return Value:<br>
-    &emsp;Object: the spawned object to capture<br>
-<p>
-Example:<br>
+    &emsp;captureTime: Number. time in seconds<p>
+<b>Return Value:</b><br>
+    &emsp;Object: the spawned object to capture<p>
+<b>Example:</b><br>
 _captureBuilding = [(getMarkerPos "spawn_position"),5,"Land_Cargo_Patrol_V1_F", 60] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf";
 <p>
-Object variables that can be referenced<br>
+<b>Object variables that can be referenced:</b><br>
 <br>
 "isBeingCaptured": Boolean - is the object currently being captured<br>
 "owner": Side - who currently owns the object<br>
