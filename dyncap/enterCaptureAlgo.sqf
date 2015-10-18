@@ -7,7 +7,7 @@ disableSerialization;
 _trigger = _this select 0;
 _buildingType = _this select 1;
 _radius = _this select 2;
-_captureTime = 60;
+_captureTime = _this select 3;
 
 // find the object that needs to be captured
 _captureObject = nearestObject [_trigger, _buildingType];
