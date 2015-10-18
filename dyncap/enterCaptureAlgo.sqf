@@ -35,7 +35,7 @@ while {_doCaptureLoop} do {
 	// count which side has superior numbers
 	_activators = _capturePosition nearEntities [["CaManBase"], _radius * 2];
 
-	diag_log format ["activators: %1", _activators];
+	//diag_log format ["activators: %1", _activators];
 
 	_sideCounters = [[west, 0],[east, 0],[independent, 0]];
 	{
@@ -49,7 +49,7 @@ while {_doCaptureLoop} do {
 		_sideCounters set [_sideCounterIndex, [_activatorSide, ((_counter select 1)+1)]];
 	} forEach _activators;
 
-	diag_log format ["sideCounters: %1", _sideCounters];
+	//diag_log format ["sideCounters: %1", _sideCounters];
 
 	// find the side with superior numbers
 	_sideWithSuperiorNumbers = _currentOwner;
@@ -62,8 +62,8 @@ while {_doCaptureLoop} do {
 		};
 	} forEach _sideCounters;
 
-	diag_log format ["sideWithSuperiorNumbers: %1", _sideWithSuperiorNumbers];
-	diag_log format ["lastSideWithSuperiorNumbers: %1", _lastSideWithSuperiorNumbers];
+	//diag_log format ["sideWithSuperiorNumbers: %1", _sideWithSuperiorNumbers];
+	//diag_log format ["lastSideWithSuperiorNumbers: %1", _lastSideWithSuperiorNumbers];
 
 	if(_sideWithSuperiorNumbers == _lastSideWithSuperiorNumbers && _sideWithSuperiorNumbers != _currentOwner) then {
 		_captureObject setVariable ["isBeingCaptured", true, true];
@@ -76,7 +76,7 @@ while {_doCaptureLoop} do {
 		_currentTime = time;
 		_timeHeld = _timeHeld + ( _currentTime - _lastTimeCheck );
 
-		diag_log format ["timeHeld: %1", _timeHeld];
+		//diag_log format ["timeHeld: %1", _timeHeld];
 
 		// update progressbar
 		_progressBar progressSetPosition (_timeHeld / _captureTime);
