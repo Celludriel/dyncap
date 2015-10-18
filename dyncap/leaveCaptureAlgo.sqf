@@ -10,6 +10,10 @@ _radius = _this select 2;
 
 // find the object that needs to be captured
 _captureObject = nearestObject [_trigger, _buildingType];
+
+// mark that a script is using the object
+_captureObject setVariable ["isUsed", true, true];
+
 _capturePosition = getPos _captureObject;
 
 diag_log format ["captureObject: %1, capturePosition: %2", _captureObject, _capturePosition];
@@ -32,3 +36,5 @@ if(_sideWithSuperiorNumbers == _currentOwner) then {
 	diag_log format ["Owner back superior after leaving trigger ending capture"];
 	_captureObject setVariable ["isBeingCaptured", false, true];
 };
+
+_captureObject setVariable ["isUsed", false, true];

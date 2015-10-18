@@ -11,6 +11,10 @@ _captureTime = _this select 3;
 
 // find the object that needs to be captured
 _captureObject = nearestObject [_trigger, _buildingType];
+
+// mark that a script is using the object
+_captureObject setVariable ["isUsed", true, true];
+
 _capturePosition = getPos _captureObject;
 
 diag_log format ["captureObject: %1, capturePosition: %2", _captureObject, _capturePosition];
@@ -79,6 +83,7 @@ while {_doCaptureLoop} do {
 			[] call dynCapResetProgressBar;
 
 			_doCaptureLoop = false;
+			_captureObject setVariable ["isUsed", false, true];
 		};
 
 		// we do not want to overtax the cpu so we sleep each second, this won't impact user experience but saves on cpu resources
@@ -89,6 +94,7 @@ while {_doCaptureLoop} do {
 			diag_log format ["Owner back superior ending capture"];
 			_captureObject setVariable ["isBeingCaptured", false, true];
 			_doCaptureLoop = false;
+			_captureObject setVariable ["isUsed", false, true];
 
 			// reset and hide progressbar
 			[] call dynCapResetProgressBar;

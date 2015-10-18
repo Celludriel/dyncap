@@ -1,5 +1,7 @@
 #include "dyncap\Defines.hpp"
 
+enableDebugConsole = 2;
+
 class RscTitles
 {
 	class CapProgressBar
