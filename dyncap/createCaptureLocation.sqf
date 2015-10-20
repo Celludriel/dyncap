@@ -20,20 +20,17 @@ _marker setMarkerSize [0.50, 0.50];
 _marker setMarkerColor "ColorRed";
 
 _captureBuilding = _buildingType createVehicle _location;
+waitUntil {alive _captureBuilding};
+
 _captureBuilding allowDamage false;
 _captureBuilding setVariable ["isBeingCaptured", false, true];
 _captureBuilding setVariable ["owner", _side, true];
 _captureBuilding setVariable ["marker", _marker, true];
 
-_captureTrigger = createTrigger ["EmptyDetector", _location, true];
-_captureTrigger setTriggerArea [_captureRadius, _captureRadius, 0, false];
-_captureTrigger setTriggerActivation ["ANY", "PRESENT", true];
+// spawn server thread
+[_captureBuilding, _captureRadius, _captureTime] execVM "dyncap\dynServerCaptureMonitor.sqf";
 
-_triggerOnAct = format ["[thisTrigger, '%1', %2, %3] execVM 'dyncap\enterCaptureAlgo.sqf'", _buildingType, _captureRadius, _captureTime];
-_triggerOnLeave = format ["[thisTrigger, '%1', %2] execVM 'dyncap\leaveCaptureAlgo.sqf'", _buildingType, _captureRadius];
-
-_captureTrigger setTriggerStatements ["this && ({(_x isKindOf 'CAManBase')} count thislist) > 0", _triggerOnAct, _triggerOnLeave];
-
-_captureBuilding setVariable ["trigger", _captureTrigger, true];
+// spawn client threads
+[[[_captureBuilding,_captureRadius,_captureTime],"dyncap\dynClientCaptureMonitor.sqf"],"BIS_fnc_execVM",true,true] call BIS_fnc_MP;
 
 _captureBuilding
