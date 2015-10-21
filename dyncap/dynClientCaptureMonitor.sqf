@@ -26,14 +26,16 @@ while { alive _captureObject } do {
 				_progressBar = nil;
 
 				diag_log format ["isBeingCaptured: %1", _isBeingCaptured];
-				if(_isBeingCaptured) then {
+				if(_isBeingCaptured && !_barActive) then {
 					// show progressbar
 					("CapProgressBarLayer" call BIS_fnc_rscLayer) cutRsc ["CapProgressBar", "PLAIN", 0.001, false];
 					_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
 					_barActive = true;
 				};
 
-				while {_isBeingCaptured && (player distance _captureObject == _radius)} do {
+				diag_log format ["distance: %1", player distance _captureObject];
+				diag_log format ["radius: %1", (_radius * 2)];
+				while {_isBeingCaptured && (player distance _captureObject <= (_radius * 2))} do {
 					_timeHeld = _captureObject getVariable "timeHeld";
 					// update progressbar
 					_progressBar progressSetPosition (_timeHeld / _captureTime);

@@ -58,7 +58,7 @@ while { alive _captureObject } do {
 
 					// switch color marker
 					_marker = _captureObject getVariable "marker";
-					switch(_sideWithSuperiorNumbers) do{
+					switch(_sideWithSuperiorNumbers) do {
 						case west : {_marker setMarkerColor "ColorBlue";};
 						case east : {_marker setMarkerColor "ColorRed";};
 						default {_marker setMarkerColor "ColorBlack";};
@@ -86,5 +86,6 @@ while { alive _captureObject } do {
 			};
 			sleep 1;
 		};
+	};
 	sleep 1;
 };
