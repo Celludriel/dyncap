@@ -1,5 +1,3 @@
-if(!isServer) exitWith {};
-
 if(isNil "dynCapFnLoaded") then {
 	dynCapResetProgressBar = {
 		("CapProgressBarLayer" call BIS_fnc_rscLayer) cutFadeOut 0;
