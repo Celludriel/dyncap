@@ -39,6 +39,7 @@ while { alive _captureObject } do {
 					_timeHeld = _captureObject getVariable "timeHeld";
 					// update progressbar
 					_progressBar progressSetPosition (_timeHeld / _captureTime);
+					_isBeingCaptured = _captureObject getVariable "isBeingCaptured";
 					sleep 1;
 				};
 

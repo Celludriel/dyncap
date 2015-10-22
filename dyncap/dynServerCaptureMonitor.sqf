@@ -70,7 +70,7 @@ while { alive _captureObject } do {
 			} else {
 				if(_sideWithSuperiorNumbers == _currentOwner) then {
 					// the owner is back in the majority stop any capturing
-					diag_log format ["Owner back superior ending capture"];
+					diag_log format ["Owner back superior stopping capture logic"];
 					_captureObject setVariable ["isBeingCaptured", false, true];
 					_doCaptureLoop = false;
 					_captureObject setVariable ["isUsed", false, true];
@@ -83,6 +83,15 @@ while { alive _captureObject } do {
 					_lastTimeCheck = time;
 					_lastSideWithSuperiorNumbers = _sideWithSuperiorNumbers;
 				};
+			};
+
+			//fetch new istuation
+			_activators = _capturePosition nearEntities [["CaManBase"], _radius * 2];
+			if(count _activators == 0) then {
+				diag_log format ["Stopping capture logic"];
+				_doCaptureLoop = false;
+				_captureObject setVariable ["isBeingCaptured", false, true];
+				_captureObject setVariable ["timeHeld", 0, true];
 			};
 			sleep 1;
 		};
