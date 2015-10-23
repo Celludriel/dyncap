@@ -32,6 +32,8 @@ _captureBuilding = [(getMarkerPos "spawn_position"),5,"Land_Cargo_Patrol_V1_F", 
 <p>
 <b>Change Log</b><br>
 v1.0.0<br>
-&emsp;first release<br>
+&emsp;First release<br>
 v1.0.1<br>
-&emsp;fixed bug with local server not showing the progressbar<br>
+&emsp;Fixed bug with local server not showing the progressbar<br>
+v1.0.2<br>
+&emsp;Removed the logging that was blowing up the logfile<br>
