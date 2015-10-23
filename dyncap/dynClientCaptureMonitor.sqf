@@ -1,6 +1,6 @@
 diag_log format ["Calling dynClientCaptureMonitor.sqf"];
 
-if (isServer) exitWith {};
+if (isDedicated) exitWith {};
 [] call compileFinal preprocessFileLineNumbers "dyncap\dyncap_fn.sqf";
 
 _captureObject = _this select 0;
