@@ -31,8 +31,7 @@ _captureBuilding = [(getMarkerPos "spawn_position"),5,"Land_Cargo_Patrol_V1_F", 
 [objective] call pDynRemoveObjective; - removes a spawned objective
 <p>
 <b>Change Log</b>
-<br>
-v1.0.0
+<br>v1.0.0
 - first release
-v1.0.1
+<br>v1.0.1
 - fixed bug with local server not showing the progressbar
