@@ -24,8 +24,6 @@ if(isNil "dynCapFnLoaded") then {
 			_sideCounters set [_sideCounterIndex, [_activatorSide, ((_counter select 1)+1)]];
 		} forEach _activators;
 
-		//diag_log format ["sideCounters: %1", _sideCounters];
-
 		// find the side with superior numbers
 		_sideWithSuperiorNumbers = _currentOwner;
 		_currentMax = 0;

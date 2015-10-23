@@ -12,20 +12,15 @@ _captureObject setVariable ["isUsed", true, true];
 // server handles all the capture logic
 _capturePosition = getPos _captureObject;
 
-diag_log format ["captureObject: %1, capturePosition: %2", _captureObject, _capturePosition];
-
 while { alive _captureObject } do {
 	_activators = _capturePosition nearEntities [["CaManBase"], _radius * 2];
-	diag_log format ["activators: %1", _activators];
 
 	if(count _activators > 0) then {
-		diag_log format ["Starting capture logic"];
 		_doCaptureLoop = true;
 
 		// get the current owner
 		_currentOwner = _captureObject getVariable "owner";
 
-		diag_log format ["currentOwner: %1", _currentOwner];
 		// start the capture loop logic
 		_timeHeld = 0;
 		_lastTimeCheck = time;
@@ -34,9 +29,6 @@ while { alive _captureObject } do {
 		while {_doCaptureLoop} do {
 			// count which side has superior numbers
 			_sideWithSuperiorNumbers = [_activators,_currentOwner] call dynCapFindSideWithSuperiorNumbers;
-
-			diag_log format ["sideWithSuperiorNumbers: %1", _sideWithSuperiorNumbers];
-			diag_log format ["lastSideWithSuperiorNumbers: %1", _lastSideWithSuperiorNumbers];
 
 			if(_sideWithSuperiorNumbers == _lastSideWithSuperiorNumbers && _sideWithSuperiorNumbers != _currentOwner) then {
 				_captureObject setVariable ["isBeingCaptured", true, true];
@@ -50,7 +42,6 @@ while { alive _captureObject } do {
 				_lastSideWithSuperiorNumbers = _sideWithSuperiorNumbers;
 
 				if(_timeHeld >= _captureTime) then {
-					diag_log format ["Object captured"];
 					// the capture succeeded set new owner
 					_captureObject setVariable ["isBeingCaptured", false, true];
 					_captureObject setVariable ["timeHeld", 0, true];
@@ -70,14 +61,12 @@ while { alive _captureObject } do {
 			} else {
 				if(_sideWithSuperiorNumbers == _currentOwner) then {
 					// the owner is back in the majority stop any capturing
-					diag_log format ["Owner back superior stopping capture logic"];
 					_captureObject setVariable ["isBeingCaptured", false, true];
 					_doCaptureLoop = false;
 					_captureObject setVariable ["isUsed", false, true];
 					_captureObject setVariable ["timeHeld", 0, true];
 				} else {
 					// new side is getting the upper hand reset timer for that side
-					diag_log format ["Changing capture side"];
 					_timeHeld = 0;
 					_captureObject setVariable ["timeHeld", 0, true];
 					_lastTimeCheck = time;
@@ -88,7 +77,6 @@ while { alive _captureObject } do {
 			//fetch new istuation
 			_activators = _capturePosition nearEntities [["CaManBase"], _radius * 2];
 			if(count _activators == 0) then {
-				diag_log format ["Stopping capture logic"];
 				_doCaptureLoop = false;
 				_captureObject setVariable ["isBeingCaptured", false, true];
 				_captureObject setVariable ["timeHeld", 0, true];
