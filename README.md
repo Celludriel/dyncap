@@ -8,6 +8,7 @@ Usage:
 - Copy the dyncap folder to any place in your mission folder
 - Update config.sqf to the path you placed dyncap
 - Copy or extend your Description.ext with the one in this distribution
+- Put the following in init.sqf: [] execVM "dyncap\config.sqf";
 - Use following line to spawn an objective:
 
 <p>
