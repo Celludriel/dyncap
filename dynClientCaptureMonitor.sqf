@@ -1,11 +1,9 @@
 diag_log format ["Calling dynClientCaptureMonitor.sqf"];
 
 if (isDedicated) exitWith {};
-[] call compileFinal preprocessFileLineNumbers "dyncap\dyncap_fn.sqf";
 
-_captureObject = _this select 0;
-_radius = _this select 1;
-_captureTime = _this select 2;
+params ["_captureObject", "_radius", "_captureTime"];
+
 _capturePosition = getPos _captureObject;
 
 waitUntil {!isNull player};
@@ -25,11 +23,13 @@ while { alive _captureObject } do {
 
 				if(_isBeingCaptured && !_barActive) then {
 					// show progressbar
+					diag_log format ["Showing capture bar [%1 - %2]", _isBeingCaptured, _barActive];
 					("CapProgressBarLayer" call BIS_fnc_rscLayer) cutRsc ["CapProgressBar", "PLAIN", 0.001, false];
 					_progressBar = ((uiNamespace getVariable "CapProgressBar") displayCtrl 22202);
 					_barActive = true;
 				};
 
+				diag_log format ["Start bar update loop with [%1 - %2]", _isBeingCaptured, (player distance _captureObject <= (_radius * 2))];
 				while {_isBeingCaptured && (player distance _captureObject <= (_radius * 2))} do {
 					_timeHeld = _captureObject getVariable "timeHeld";
 					// update progressbar
@@ -40,7 +40,8 @@ while { alive _captureObject } do {
 
 				// the bar was active remove it
 				if(_barActive) then {
-					[] call dynCapResetProgressBar;
+					diag_log format ["Resetting capture bar [%1]", _barActive];
+					[] call DynCap_fnc_dynCapResetProgressBar;
 				};
 			};
 		} forEach _activators;

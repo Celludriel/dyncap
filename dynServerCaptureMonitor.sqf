@@ -2,9 +2,7 @@ diag_log format ["Calling dynServerCaptureMonitor.sqf"];
 
 if (!isServer) exitWith {};
 
-_captureObject = _this select 0;
-_radius = _this select 1;
-_captureTime = _this select 2;
+params ["_captureObject", "_radius", "_captureTime"];
 
 // mark that a script is using the object
 _captureObject setVariable ["isUsed", true, true];
@@ -28,9 +26,11 @@ while { alive _captureObject } do {
 
 		while {_doCaptureLoop} do {
 			// count which side has superior numbers
-			_sideWithSuperiorNumbers = [_activators,_currentOwner] call dynCapFindSideWithSuperiorNumbers;
+			_sideWithSuperiorNumbers = [_activators,_currentOwner] call DynCap_fnc_dynCapFindSideWithSuperiorNumbers;
+			diag_log format ["_sideWithSuperiorNumbers [%1]", _sideWithSuperiorNumbers];
 
 			if(_sideWithSuperiorNumbers == _lastSideWithSuperiorNumbers && _sideWithSuperiorNumbers != _currentOwner) then {
+				diag_log format ["Capturing"];
 				_captureObject setVariable ["isBeingCaptured", true, true];
 
 				// calculate the time held
@@ -42,6 +42,7 @@ while { alive _captureObject } do {
 				_lastSideWithSuperiorNumbers = _sideWithSuperiorNumbers;
 
 				if(_timeHeld >= _captureTime) then {
+					diag_log format ["Captured"];
 					// the capture succeeded set new owner
 					_captureObject setVariable ["isBeingCaptured", false, true];
 					_captureObject setVariable ["timeHeld", 0, true];
@@ -50,8 +51,8 @@ while { alive _captureObject } do {
 					// switch color marker
 					_marker = _captureObject getVariable "marker";
 					switch(_sideWithSuperiorNumbers) do {
-						case west : {_marker setMarkerColor "ColorBlue";};
-						case east : {_marker setMarkerColor "ColorRed";};
+						case west : {_marker setMarkerColor "ColorBLUFOR";};
+						case east : {_marker setMarkerColor "ColorOPFOR";};
 						default {_marker setMarkerColor "ColorBlack";};
 					};
 
@@ -60,12 +61,14 @@ while { alive _captureObject } do {
 				};
 			} else {
 				if(_sideWithSuperiorNumbers == _currentOwner) then {
+					diag_log format ["Stop Capturing"];
 					// the owner is back in the majority stop any capturing
 					_captureObject setVariable ["isBeingCaptured", false, true];
 					_doCaptureLoop = false;
 					_captureObject setVariable ["isUsed", false, true];
 					_captureObject setVariable ["timeHeld", 0, true];
 				} else {
+					diag_log format ["Reset Capturing"];
 					// new side is getting the upper hand reset timer for that side
 					_timeHeld = 0;
 					_captureObject setVariable ["timeHeld", 0, true];
@@ -77,6 +80,7 @@ while { alive _captureObject } do {
 			//fetch new istuation
 			_activators = _capturePosition nearEntities [["CaManBase"], _radius * 2];
 			if(count _activators == 0) then {
+				diag_log format ["Resetting everything"];
 				_doCaptureLoop = false;
 				_captureObject setVariable ["isBeingCaptured", false, true];
 				_captureObject setVariable ["timeHeld", 0, true];
