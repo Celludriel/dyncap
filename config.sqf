@@ -1,1 +1,1 @@
-DYNCAP_PATH="dyncap\";
+DYNCAP_PATH="";

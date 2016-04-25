@@ -7,5 +7,6 @@ class DynCapFunctions {
 		class dynCapFindSideWithSuperiorNumbers {};
 		class dynCapResetProgressBar {};
 		class dynRemoveObjective {};
+		class createCaptureLocation {};
 	};
 };

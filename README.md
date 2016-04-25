@@ -13,9 +13,11 @@ Usage:
 
 <p>
 <b>Syntax:</b><br>
-    &emsp;objective = [position, radius, objectType, captureTime, side] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf"<p>
-    or<p>
-    &emsp;objective = [position, radius, objectType, captureTime, side, markertype] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf"<p>
+    &emsp;_capturableObject = [position, radius, objectType, captureTime, side] call DYNCAP_fnc_createCaptureLocation;
+    <p>or<p>
+    &emsp;_capturableObject = [position, radius, objectType, captureTime, side, markerType] call DYNCAP_fnc_createCaptureLocation;
+    <p>or<p>
+    &emsp;_capturableObject = [position, radius, objectType, captureTime, side, markertype, _eventScripts] call DYNCAP_fnc_createCaptureLocation;
 <b>Parameters:</b><br>
     &emsp;position: Array - format Position2D<br>
     &emsp;radius: Number. radius of capture zone<br>
@@ -23,10 +25,22 @@ Usage:
     &emsp;captureTime: Number. time in seconds<br>
     &emsp;side: Side. side the object originaly belongs to<p>
     &emsp;markerType: String. type of ICON to show on the map<p>
+    &emsp;eventscripts: Array.  _eventScripts format:
+        [
+            [Capture scripts],              -- Scripts to run while capturing
+            [Captured succes scripts],     --- Scripts to run when capture is a success
+            [Capture cancelled scripts]    --- Scripts to run when a capture for any reason cancels
+        ]<p>
 <b>Return Value:</b><br>
     &emsp;Object: the spawned object to capture<p>
 <b>Example:</b><br>
-_captureBuilding = [(getMarkerPos "spawn_position"),5,"Land_Cargo_Patrol_V1_F", 60, east, "Flag1"] call compileFinal preprocessFileLineNumbers "dyncap\createCaptureLocation.sqf";
+
+_eventScripts = [<br>
+    ["core\server\ai\rushToCaptureLocation.sqf"],<br>
+    [],<br>
+    ["core\server\ai\spreadOut.sqf"]<br>
+];<br><br>
+_capture_capturableObject = [_location, "Flag_Green_F", 5, 300, east, nil, _eventScripts] call DYNCAP_fnc_createCaptureLocation;
 <p>
 <b>Object variables that can be referenced:</b><br>
 <br>
