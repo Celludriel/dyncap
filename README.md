@@ -25,11 +25,11 @@ Usage:
     &emsp;captureTime: Number. time in seconds<br>
     &emsp;side: Side. side the object originaly belongs to<p>
     &emsp;markerType: String. type of ICON to show on the map<p>
-    &emsp;eventscripts: Array.  _eventScripts format:
-        [
-            [Capture scripts],              -- Scripts to run while capturing
-            [Captured succes scripts],     --- Scripts to run when capture is a success
-            [Capture cancelled scripts]    --- Scripts to run when a capture for any reason cancels
+    &emsp;eventscripts: Array.  _eventScripts format:<br>
+        [<br>
+            [Capture scripts],             --- Scripts to run while capturing<br>
+            [Captured succes scripts],     --- Scripts to run when capture is a success<br>
+            [Capture cancelled scripts]    --- Scripts to run when a capture for any reason cancels<br>
         ]<p>
 <b>Return Value:</b><br>
     &emsp;Object: the spawned object to capture<p>
