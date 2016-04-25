@@ -18,6 +18,7 @@ Usage:
     &emsp;_capturableObject = [position, radius, objectType, captureTime, side, markerType] call DYNCAP_fnc_createCaptureLocation;
     <p>or<p>
     &emsp;_capturableObject = [position, radius, objectType, captureTime, side, markertype, _eventScripts] call DYNCAP_fnc_createCaptureLocation;
+<p>
 <b>Parameters:</b><br>
     &emsp;position: Array - format Position2D<br>
     &emsp;radius: Number. radius of capture zone<br>
